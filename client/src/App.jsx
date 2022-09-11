@@ -8,6 +8,8 @@ const App = () => {
     photo: null
   })
 
+  const [img, setImage] = useState('');
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -20,7 +22,8 @@ const App = () => {
       }
     })
 
-    console.log('response',response);
+    console.log('response',response.data);
+    setImage(response.data);
   }
 
   return (
@@ -29,6 +32,7 @@ const App = () => {
         <input type="text" placeholder="title" onChange={(e) => setPost({...post, title: e.target.value})}/>
         <input type="file" name="photo" onChange={(e) => setPost({...post, photo: e.target.files[0]})}/>
         <button type="submit">Subir</button>
+        <img src={img} alt="Upload" />
       </form>
     </div>
   )

@@ -23,14 +23,26 @@ const client = new S3Client({
 async function uploadFile(file) {
   const stream = fs.createReadStream(file.tempFilePath);
 
+  const response = [];
+
+  let name = file.name.split(' ').join('_');
+
   const uploadParams = {
     Bucket: AWS_BUCKET_NAME,
-    Key: file.name,
+    Key: name,
     Body: stream,
   };
 
+  let fileUrl = `https://pinkini-server.s3.us-west-1.amazonaws.com/${name}`;
+
+  response.push({'fileURL': fileUrl})
+
   const command = new PutObjectCommand(uploadParams);
-  return await client.send(command);
+  const res = await client.send(command);
+
+  response.push(res);
+
+  return response
 }
 // CODE TO UPLOAD FILES
 
