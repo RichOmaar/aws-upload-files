@@ -15,6 +15,7 @@ router.post("/upload", async (req, res) => {
 router.get("/getFile/:name", async (req, res) => {
     // console.log(req.params.name);
     console.log('Archivo descargado');
+    
     try {
         const result = await readFile(req.params.name);
         res.send('Archivo descargado');
